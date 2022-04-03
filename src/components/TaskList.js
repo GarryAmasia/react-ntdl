@@ -2,7 +2,7 @@ import React from "react";
 import { Row, Col, Table, Button, Form } from "react-bootstrap";
 // import { FormRow } from "./FormRow";
 
-export const TaskList = () => {
+export const TaskList = ({ taskList, removeFromTaskList, shiftToBadList }) => {
   // create sample data
 
   return (
@@ -12,21 +12,26 @@ export const TaskList = () => {
       {/* this table is for task list */}
       <Table striped hover>
         <tbody>
-          <tr>
-            <td>
-              <Form.Check type="checkbox" />
-            </td>
-            <td>task name</td>
-            <td>10 hour</td>
-            <td className="text-end">
-              <Button variant="danger">
-                <i className="fa-solid fa-trash-can"></i>
-              </Button>{" "}
-              <Button variant="primary">
-                <i className="fa-solid fa-arrow-right-long"></i>
-              </Button>
-            </td>
-          </tr>
+          {taskList.map((item, index) => (
+            <tr key={index}>
+              <td>
+                <Form.Check type="checkbox" />
+              </td>
+              <td>{item.task}</td>
+              <td>{item.hr}</td>
+              <td className="text-end">
+                <Button
+                  variant="danger"
+                  onClick={() => removeFromTaskList(index)}
+                >
+                  <i className="fa-solid fa-trash-can"></i>
+                </Button>{" "}
+                <Button variant="primary" onClick={() => shiftToBadList(index)}>
+                  <i className="fa-solid fa-arrow-right-long"></i>
+                </Button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </Table>
     </div>
