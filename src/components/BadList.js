@@ -7,7 +7,7 @@ export const BadList = () => {
 
   return (
     <div>
-      <h2 className="text-center">Task List</h2>
+      <h2 className="text-center">Bad List</h2>
       <hr />
       {/* this table is for task list */}
       <Table striped hover>
