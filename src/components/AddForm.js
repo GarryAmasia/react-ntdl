@@ -13,7 +13,7 @@ export const AddForm = () => {
             <Form.Control name="task" placeholder="Task..." required />
           </Col>
           <Col md={3}>
-            <Form.Control placeholder="hour" type="number" name="hr" required />
+            <Form.Control name="hr" placeholder="hour" type="number" required />
           </Col>
           <Col md={2} className="text-center">
             <Button className="btn-dark" variant="primary" type="submit">

@@ -1,10 +1,11 @@
 // import logo from "./logo.svg";
 import "./App.css";
-import { Container } from "react-bootstrap";
+import { Container, Form, Col, Row } from "react-bootstrap";
 import { Title } from "./components/Title";
 import { AddForm } from "./components/AddForm";
 import { TaskList } from "./components/TaskList";
 // import { FormRow } from "./components/FormRow";
+import { BadList } from "./components/BadList";
 import { useState } from "react";
 
 const App = () => {
@@ -18,7 +19,22 @@ const App = () => {
         <hr />
 
         {/* task list component here */}
-        <TaskList />
+        <Row>
+          <Col md="6">
+            <TaskList />
+          </Col>
+          <Col md="6">
+            <BadList />
+          </Col>
+        </Row>
+        <Row>
+          {/* Total hours allocation */}
+          <Row>
+            <Col>
+              <h2 className="mt-5">The total allocated hours us :15 hours</h2>
+            </Col>
+          </Row>
+        </Row>
       </Container>
     </div>
   );
