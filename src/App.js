@@ -1,28 +1,39 @@
 // import logo from "./logo.svg";
 import "./App.css";
-import { Container, Form, Col, Row } from "react-bootstrap";
+import { Container, Col, Row } from "react-bootstrap";
 import { Title } from "./components/Title";
 import { AddForm } from "./components/AddForm";
 import { TaskList } from "./components/TaskList";
 // import { FormRow } from "./components/FormRow";
 import { BadList } from "./components/BadList";
-import { Component, useState } from "react";
+import { useState } from "react";
+// import { FormRow } from "./components/FormRow";
+
+const weeklyHrs = 24 * 7;
+// console.log(weeklyHrs);
 
 const App = () => {
   const [taskList, setTaskList] = useState([]);
   const [badList, setBadList] = useState([]);
-
-  const addToTaskList = (newInfo) => {
-    setTaskList([...taskList, newInfo]);
-    console.log(taskList, newInfo);
-  };
-  // console.log(taskList);
 
   //remove item from the task list
   //use i because its unique
   const removeFromTaskList = (i) => {
     const filteredArg = taskList.filter((item, index) => index !== i);
     setTaskList(filteredArg);
+  };
+
+  //remove item from the bad list
+  const removeFromBadList = (i) => {
+    const filteredArg = badList.filter((item, index) => index !== i);
+    setBadList(filteredArg);
+  };
+
+  //move from bad list to task list
+  const shiftToTaskList = (i) => {
+    const item = badList[i];
+    setTaskList([...taskList, item]);
+    removeFromBadList(i);
   };
 
   //moving from the task list to bad list based on an index
@@ -36,6 +47,20 @@ const App = () => {
 
     //remove the item from the task list
     removeFromTaskList(i);
+  };
+
+  //reduce method always return 1 value,,either string or number
+  //+es6 parseInt method
+  const taskListTotalHr = taskList.reduce((acc, item) => acc + +item.hr, 0);
+  const BadListTotalHr = badList.reduce((acc, item) => acc + +item.hr, 0);
+  const ttlHrs = taskListTotalHr + BadListTotalHr;
+
+  const addToTaskList = (newInfo) => {
+    if (ttlHrs + +newInfo.hr <= weeklyHrs) {
+      setTaskList([...taskList, newInfo]);
+    } else {
+      alert("you reach to limit hours");
+    }
   };
 
   return (
@@ -57,14 +82,22 @@ const App = () => {
             />
           </Col>
           <Col md="6">
-            <BadList badList={badList} />
+            <BadList
+              badList={badList}
+              removeFromBadList={removeFromBadList}
+              shiftToTaskList={shiftToTaskList}
+              BadListTotalHr={BadListTotalHr}
+            />
           </Col>
         </Row>
         <Row>
           {/* Total hours allocation */}
           <Row>
             <Col>
-              <h2 className="mt-5">The total allocated hours us :15 hours</h2>
+              <h2 className="mt-5">
+                The total allocated hours us :{ttlHrs}
+                hours
+              </h2>
             </Col>
           </Row>
         </Row>

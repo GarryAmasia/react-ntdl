@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Table, Button, Form } from "react-bootstrap";
+import { Table, Button, Form } from "react-bootstrap";
 // import { FormRow } from "./FormRow";
 
 export const TaskList = ({ taskList, removeFromTaskList, shiftToBadList }) => {

@@ -1,8 +1,13 @@
 import React from "react";
-import { Row, Col, Table, Button, Form } from "react-bootstrap";
+import { Table, Button, Form } from "react-bootstrap";
 // import { FormRow } from "./FormRow";
 
-export const BadList = ({ badList }) => {
+export const BadList = ({
+  badList,
+  removeFromBadList,
+  shiftToTaskList,
+  BadListTotalHr,
+}) => {
   // create sample data
 
   return (
@@ -20,10 +25,10 @@ export const BadList = ({ badList }) => {
               <td>{item.task}</td>
               <td>{item.hr}</td>
               <td className="text-end">
-                <Button variant="warning">
+                <Button variant="warning" onClick={() => shiftToTaskList(i)}>
                   <i className="fa-solid fa-arrow-left-long"></i>
                 </Button>{" "}
-                <Button variant="primary">
+                <Button variant="danger" onClick={() => removeFromBadList(i)}>
                   <i className="fa-solid fa-trash-can"></i>
                 </Button>
               </td>
@@ -31,7 +36,9 @@ export const BadList = ({ badList }) => {
           ))}
         </tbody>
       </Table>
-      <h5 className="mt-4 text-danger">You could have saved : 20 hours</h5>
+      <h5 className="mt-4 text-danger">
+        You could have saved : {BadListTotalHr} hours
+      </h5>
     </div>
   );
 };
